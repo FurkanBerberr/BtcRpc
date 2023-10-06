@@ -92,11 +92,12 @@ router.get("/hashfunction", (req, res) => {
 
 var jsonResults = new Object()
 
-router.get("/getblocks/:id", async (req, res) => {
+router.get("/getblocks/:id/:count", async (req, res) => {
+    let howManyBlock = req.params.count
     let blockHash = await getBlockHash(req.params.id)
     let blockInfo = await getBlock(blockHash)
     let blockCounter = 0
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < howManyBlock; i++) {
         let blockTxArray = blockInfo.result.tx
         for (let j = 0; j < blockTxArray.length; j++) {
             const transaction = await getRawTransaction(blockTxArray[j])
