@@ -54,6 +54,20 @@ const getBlockHash = async (id) => {
     return result.data.result
 }
 
+// Returns the current block count
+const getBlockCount = async () => {
+    const data = {
+        jsonrpc: "1.0",
+        id: "curltext",
+        method: "getblockcount",
+        params: []
+    }
+
+    const result = await axios.post(API_URL, data, {headers})
+    return result.data.result
+
+}
+
 // Takes the hash of the block and retuns block info
 const getBlock = async (hash) => {
 
@@ -88,6 +102,11 @@ router.get("/test", (req, res) => res.json({ msg: "niqo works" }))
 // Example url that takes  Sigscript ASM as an input and returns address of the transaction
 router.get("/hashfunction", (req, res) => {
     res.json({ msg: Ripe160HashtoBase58(hashRipemd160("0446ef0102d1ec5240f0d061a4246c1bdef63fc3dbab7733052fbbf0ecd8f41fc26bf049ebb4f9527f374280259e7cfa99c48b0e3f39c51347a19a5819651503a5")) })
+})
+
+router.get("/getblockcount", async (req, res) => {
+    const result = await getBlockCount()
+    res.json(result)
 })
 
 var jsonResults = new Object()
