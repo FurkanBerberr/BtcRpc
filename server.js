@@ -1,7 +1,6 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const rpcMethods = require("./routes/api")
-const rpcMethods2 = require("./routes/api2")
 
 const app = express()
 
@@ -9,8 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use("/api", rpcMethods)
-app.use("/api2", rpcMethods2)
 
-const port = process.env.PORT || 4444
+const port = process.env.PORT || 6106
 
 server = app.listen(port, () => console.log(`Server running on port ${port}`))
